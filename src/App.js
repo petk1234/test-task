@@ -1,24 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { useState } from "react";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import authOperations from "./redux/auth/authOperations";
+import ListCards from "./components/listCards/ListCards";
+import Form from "./components/form/Form";
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(authOperations.getToken());
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <p>Hi!</p>
+      <ListCards />
+      <Form />
+    </>
   );
 }
 
