@@ -12,6 +12,10 @@ const requestSetUser = createAction("auth/requestSetUser");
 const successSetUser = createAction("auth/successSetUser");
 const failureSetUser = createAction("auth/failureSetUser");
 
+const requestGetPositions = createAction("auth/requestGetPositions");
+const successGetPositions = createAction("auth/successGetPositions");
+const failureGetPositions = createAction("auth/failureGetPositions");
+
 export default {
   requestGetToken,
   successGetToken,
@@ -24,4 +28,8 @@ export default {
   requestSetUser,
   successSetUser,
   failureSetUser,
+
+  requestGetPositions,
+  successGetPositions,
+  failureGetPositions,
 };

@@ -4,6 +4,12 @@ import authActions from "./authActions";
 const token = createReducer("", {
   [authActions.successGetToken]: (state, { type, payload }) => payload,
 });
+const signedUp = createReducer(false, {
+  [authActions.successSetUser]: () => true,
+});
+const positions = createReducer([], {
+  [authActions.successGetPositions]: (state, { type, payload }) => payload,
+});
 const users = createReducer([], {
   [authActions.successGetUsers]: (state, { type, payload }) => [
     ...state,
@@ -24,6 +30,8 @@ const page = createReducer(1, {
 });
 const rootReducer = combineReducers({
   token: token,
+  signedUp: signedUp,
+  positions: positions,
   users: users,
   page: page,
 });

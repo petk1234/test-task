@@ -1,106 +1,80 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import authOperations from "../../redux/auth/authOperations";
+import Inputs from "../../inputs/Inputs";
+import RadioButtons from "../radio-buttons/RadioButtons";
+import Textarea from "../textarea/Textarea";
+import success from "./success.svg";
 function Form() {
+  const [position, setPosition] = useState();
+  const [photo, setImage] = useState();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [position, setPosition] = useState(1);
-  const [photo, setImage] = useState();
+  const [token, signedUp] = useSelector((state) => [
+    state.usersInfo.token,
+    state.usersInfo.signedUp,
+  ]);
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.usersInfo.token);
-  const handleName = (e) => {
-    setName(e.target.value);
+  let placeholderArr = ["Your name", "Email", "Phone"];
+
+  const outsideHandleInput = (input, placeholder) => {
+    if (placeholder === "Your name") {
+      setName(input);
+    }
+    if (placeholder === "Email") {
+      setEmail(input);
+    }
+    if (placeholder === "Phone") {
+      setPhone(input);
+    }
   };
-  const handleEmail = (e) => {
-    setEmail(e.target.value);
+
+  const outsideHandlePosition = (id, position) => {
+    setPosition({ id, position });
   };
-  const handlePhone = (e) => {
-    setPhone(e.target.value);
+
+  const outsideHandleImgFile = (img) => {
+    setImage(img);
+    console.log(img);
   };
-  const handlePosition = (e) => {
-    setPosition(e.target.value);
-    console.log(e.target.value);
-  };
-  const handleImgFile = (e) => {
-    setImage(e.target.files[0]);
-    console.log(e.target.files[0]);
-  };
+
   const handleAddUser = (e) => {
     e.preventDefault();
-    let position_id = 0;
-    if (position === "frontend developer") {
-      position_id = 1;
-    }
-    if (position === "backend developer") {
-      position_id = 2;
-    }
-    if (position === "designer") {
-      position_id = 3;
-    }
-    if (position === "QA") {
-      position_id = 4;
-    }
     console.log(photo);
     const formData = new FormData();
     formData.append("name", name);
     formData.append("email", email);
     formData.append("phone", phone);
-    formData.append("position_id", position_id);
+    formData.append("position_id", position.id);
     formData.append("photo", photo);
     dispatch(authOperations.setUser(token, formData));
   };
+
   return (
-    <>
-      <h1>Working with POST request</h1>
-      <form action="/users" method="post" onSubmit={handleAddUser}>
-        <input
-          type="text"
-          onChange={handleName}
-          placeholder="Your name"
-        ></input>
-        <input type="text" onChange={handleEmail} placeholder="Email"></input>
-        <input type="text" onChange={handlePhone} placeholder="Phone"></input>
+    <div id="form">
+      {!signedUp ? (
+        <>
+          <h1>Working with POST request</h1>
+          <form action="/users" method="post" onSubmit={handleAddUser}>
+            <Inputs
+              placeholderArr={placeholderArr}
+              onHandleInput={outsideHandleInput}
+            />
 
-        <input
-          type="radio"
-          value="frontend developer"
-          onChange={handlePosition}
-          checked={position === "frontend developer"}
-        />
-        <label>Frontend developer</label>
+            <RadioButtons outsideOnPosition={outsideHandlePosition} />
 
-        <input
-          type="radio"
-          value="backend developer"
-          onChange={handlePosition}
-          checked={position === "backend developer"}
-        />
-        <label>Backend developer</label>
-
-        <input
-          type="radio"
-          value="designer"
-          onChange={handlePosition}
-          checked={position === "designer"}
-        />
-        <label>Designer</label>
-
-        <input
-          type="radio"
-          value="QA"
-          onChange={handlePosition}
-          checked={position === "QA"}
-        />
-        <label>QA</label>
-
-        <button type="submit">Submit</button>
+            <Textarea onImgFile={outsideHandleImgFile} />
+            <button type="submit">Submit</button>
+          </form>
+        </>
+      ) : (
         <div>
-          <textarea type="file"></textarea>
-          <input type="file" onChange={handleImgFile} name="title"></input>
+          <h1>User successfully registered</h1>
+          <img src={success} alt="" />
         </div>
-      </form>
-    </>
+      )}
+    </div>
   );
 }
 export default Form;

@@ -37,6 +37,27 @@ const getUsers = (page) => (dispatch) => {
     .catch((error) => dispatch(authActions.failureGetUsers()));
 };
 
+const getPositions = () => (dispatch) => {
+  dispatch(authActions.requestGetPositions());
+  fetch("https://frontend-test-assignment-api.abz.agency/api/v1/positions")
+    .then((res) => {
+      if (res.ok) {
+        console.log(res);
+        return res.json();
+      } else {
+        return Promise.reject(res.message);
+      }
+    })
+    .then((data) => {
+      console.log(data);
+      dispatch(authActions.successGetPositions(data.positions));
+    })
+    .catch((error) => {
+      console.log("It is an error occured");
+      dispatch(authActions.failureGetPositions());
+    });
+};
+
 // getButtons;
 
 // const setUser = (name, email, phone, position_id, photo) => (dispatch) => {
@@ -113,4 +134,4 @@ const setUser =
       }
     });
   };
-export default { getToken, getUsers, setUser };
+export default { getToken, getUsers, setUser, getPositions };
