@@ -1,0 +1,48 @@
+.tooltip {
+  position: relative;
+  display: flex;
+  cursor: pointer;
+  flex-direction: column;
+
+  &__hiddenText,
+  &__title,
+  &__visibleText {
+    font-family: "Nunito";
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 26px;
+  }
+  &__title,
+  &__visibleText {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  &__title {
+    margin-bottom: 20px;
+  }
+
+  &__hiddenText {
+    visibility: hidden;
+    background-color: black;
+    max-width: 310px;
+    display: inline-block;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 0 15px;
+    // word-break: break-all;
+    word-wrap: break-word;
+    position: absolute;
+    top: 150%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+  }
+
+  &:hover &__hiddenText {
+    visibility: visible;
+  }
+  &__hiddenText:hover {
+    visibility: hidden;
+  }
+}

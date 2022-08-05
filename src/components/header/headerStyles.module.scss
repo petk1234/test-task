@@ -1,0 +1,67 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
+@mixin pFeatures {
+  margin: 0;
+  font-family: "Nunito";
+  font-weight: 400;
+  font-size: 14px;
+}
+.header {
+  width: 100%;
+  max-width: 1170px;
+  background-color: #fff;
+  margin: 0 auto;
+  display: flex;
+  &__container {
+    width: 328px;
+    height: 60px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px 0 16px;
+    @media all and (min-width: 768px) and (max-width: 1023px) {
+      width: 704px;
+      padding: 0 32px 0 32;
+    }
+    @media all and (min-width: 1024px) {
+      width: 904px;
+      padding: 0 60px 0 60px;
+    }
+    @media all and (min-width: 1170px) {
+      width: 1170px;
+      padding: 0;
+    }
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    width: 105px;
+    &::before {
+      content: url("../../images/header/Group.png");
+      width: 38px;
+      height: 26px;
+    }
+  }
+  &__p {
+    @include pFeatures;
+  }
+  &__nav {
+    min-width: 210px;
+    display: flex;
+    justify-content: space-between;
+  }
+  &__button {
+    @include pFeatures;
+    width: 100px;
+    height: 34px;
+    border-radius: 25px;
+    border: 0;
+    font-size: 16px;
+    background: #f4e041;
+    color: #000;
+    &:hover {
+      background: #ffe302;
+    }
+  }
+}

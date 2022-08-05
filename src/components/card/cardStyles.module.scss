@@ -1,0 +1,23 @@
+.usersSection {
+  &__card {
+    background-color: #fff;
+    width: 288px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    @media all and (min-width: 768px) {
+      width: 304px;
+    }
+    @media all and (min-width: 1024px) {
+      width: 242px;
+      margin-bottom: 29px;
+    }
+    @media all and (min-width: 1171px) {
+      width: 330px;
+    }
+  }
+  &__img {
+    border-radius: 100px;
+    margin-bottom: 20px;
+  }
+}

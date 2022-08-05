@@ -1,0 +1,71 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
+@mixin pFeatures {
+  margin: 0;
+  font-family: "Nunito";
+  font-weight: 400;
+  font-size: 16px;
+}
+.section {
+  background: url("../../images/info/imageOne.png") no-repeat center center;
+  background-size: 100% 100%;
+  min-width: 360px;
+  min-height: 500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  @media all and (min-width: 767px) {
+    background: url("../../images/info/imageTwo.png") no-repeat center center;
+    background-size: 100% 100%;
+  }
+  @media all and (min-width: 1023px) {
+    background: url("../../images/info/image3.png") no-repeat center center;
+    background-size: 100% 100%;
+    min-height: 650px;
+  }
+  @media all and (min-width: 1171px) {
+    background: url("../../images/info/image4.png") no-repeat center center;
+    max-width: 1170px;
+  }
+  &__container {
+    width: 328px;
+    height: 400px;
+    margin: 0 auto;
+    flex-direction: column;
+    vertical-align: top;
+    @media all and (min-width: 767px) {
+      width: 380px;
+      height: 330px;
+    }
+    @media all and (min-width: 1023px) {
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  &__title,
+  &__textInfo {
+    @include pFeatures;
+    color: #fff;
+  }
+  &__title {
+    font-size: 40px;
+    font-weight: 400;
+    line-height: 40px;
+    margin-bottom: 21px;
+  }
+  &__button {
+    @include pFeatures;
+    margin-top: 36px;
+    width: 100px;
+    height: 34px;
+    border-radius: 25px;
+    border: 0;
+    background: #f4e041;
+    color: #000;
+    &:hover {
+      background: #ffe302;
+    }
+  }
+}

@@ -1,0 +1,47 @@
+@mixin textFeatures {
+  font-family: "Nunito";
+  font-weight: 400;
+  font-size: 16px;
+}
+.signUpSection {
+  &__fileContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  &__fileInput {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    width: 83px;
+    height: 54px;
+    outline: none;
+    opacity: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  &__button {
+    @include textFeatures;
+    width: 83px;
+    height: 54px;
+    margin: 0;
+    padding: 0;
+    background-color: #d0cfcf;
+    border-radius: 4px 0 0 4px;
+    border: 1px solid #000;
+    color: #000;
+  }
+  &__textarea {
+    @include textFeatures;
+    width: 245px;
+    height: 22px;
+    padding: 15px 0 15px 16px;
+    line-height: 24px;
+    font-family: "Nunito";
+    font-weight: 400;
+    font-size: 16px;
+    @media all and (min-width: 768px) {
+      width: 291px;
+    }
+  }
+}

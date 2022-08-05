@@ -5,6 +5,7 @@ import Inputs from "../../inputs/Inputs";
 import RadioButtons from "../radio-buttons/RadioButtons";
 import Textarea from "../textarea/Textarea";
 import success from "./success.svg";
+import styles from "./formStyles.module.scss";
 function Form() {
   const [position, setPosition] = useState();
   const [photo, setImage] = useState();
@@ -52,29 +53,34 @@ function Form() {
   };
 
   return (
-    <div id="form">
+    <section className={styles.signUpSection} id="form">
       {!signedUp ? (
         <>
-          <h1>Working with POST request</h1>
-          <form action="/users" method="post" onSubmit={handleAddUser}>
+          <h1 className={styles.signUpSection__title}>
+            Working with POST request
+          </h1>
+          <form className={styles.signUpSection__form} onSubmit={handleAddUser}>
             <Inputs
               placeholderArr={placeholderArr}
               onHandleInput={outsideHandleInput}
             />
-
             <RadioButtons outsideOnPosition={outsideHandlePosition} />
 
             <Textarea onImgFile={outsideHandleImgFile} />
-            <button type="submit">Submit</button>
+            <button className={styles.signUpSection__button} type="submit">
+              Sign up
+            </button>
           </form>
         </>
       ) : (
-        <div>
-          <h1>User successfully registered</h1>
-          <img src={success} alt="" />
+        <div className={styles.signUpSection__formPosted}>
+          <h1 className={styles.signUpSection__title}>
+            User successfully registered
+          </h1>
+          <img className={styles.signUpSection__img} src={success} alt="" />
         </div>
       )}
-    </div>
+    </section>
   );
 }
 export default Form;

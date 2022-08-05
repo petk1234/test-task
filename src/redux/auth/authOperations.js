@@ -29,7 +29,7 @@ const getToken = () => (dispatch) => {
 const getUsers = (page) => (dispatch) => {
   dispatch(authActions.requestGetUsers());
   axios
-    .get(`/users?page=${page}&count=5`)
+    .get(`/users?page=${page}&count=6`)
     .then((data) => {
       console.log(data);
       dispatch(authActions.successGetUsers(data.data));

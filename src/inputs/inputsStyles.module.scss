@@ -1,0 +1,35 @@
+@mixin textFeatures {
+  font-family: "Nunito";
+  font-weight: 400;
+  font-size: 12px;
+}
+.signUpSection {
+  &__inputsContainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+  &__input {
+    width: 328px;
+    height: 54px;
+    padding-left: 16px;
+    border-radius: 4px;
+    margin-bottom: 50px;
+    border: 1px solid #d0cfcf;
+    @media all and (min-width: 768px) {
+      width: 364px;
+    }
+    &:last-child {
+      margin: 0;
+    }
+    &:invalid:required {
+      border: 2px dashed red;
+    }
+  }
+  &__phoneTemplate {
+    @include textFeatures;
+    margin: 0 0 0 10px;
+    color: #7e7e7e;
+    margin-bottom: 25px;
+  }
+}

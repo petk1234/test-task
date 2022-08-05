@@ -1,10 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import authOperations from "../../redux/auth/authOperations";
-import { Fragment } from "react";
-import styles from "./radioStyles.module.scss";
+import styles from "./radioButtonsStyles.module.scss";
 function RadioButtons(props) {
-  const [currPosition, setCurrPosition] = useState();
   const positions = useSelector((state) => state.usersInfo.positions);
   const dispatch = useDispatch();
 
@@ -16,27 +14,33 @@ function RadioButtons(props) {
     let [{ id, name }] = positions.filter(
       (position) => position.name === e.target.value && position
     );
-    setCurrPosition(e.target.value);
     props.outsideOnPosition(id, e.target.value);
   };
 
   return (
     <>
+      <p className={styles.signUpSection__title}>Select your position</p>
       {positions[0] !== undefined && (
-        <>
+        <ul className={styles.signUpSection__radioButtonsList}>
           {positions.map((position, i) => (
-            <Fragment key={position.id}>
+            <li className={styles.signUpSection__item} key={position.id}>
               <input
-                className={styles.radio}
+                className={styles.signUpSection__radioButton}
                 type="radio"
+                name="positions"
                 value={position.name}
                 onChange={handlePosition}
-                checked={currPosition === positions[i].name}
+                id={position.name}
               />
-              <label>{positions[i].name}</label>
-            </Fragment>
+              <label
+                className={styles.signUpSection__position}
+                htmlFor={position.name}
+              >
+                {positions[i].name}
+              </label>
+            </li>
           ))}
-        </>
+        </ul>
       )}
     </>
   );
