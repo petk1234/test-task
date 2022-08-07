@@ -28,11 +28,19 @@ const page = createReducer(1, {
   },
   [authActions.successSetUser]: (state, { type, payload }) => 1,
 });
+const error = createReducer("", {
+  [authActions.failureSetUser]: (state, { type, payload }) => {
+    console.log(payload);
+    return payload;
+  },
+  [authActions.successSetUser]: () => "",
+});
 const rootReducer = combineReducers({
   token: token,
   signedUp: signedUp,
   positions: positions,
   users: users,
   page: page,
+  error: error,
 });
 export default rootReducer;

@@ -125,13 +125,21 @@ const setUser =
       headers: {
         Token: token,
       },
-    }).then((res) => {
-      if (res.ok) {
-        console.log("ok");
-        dispatch(authActions.successSetUser());
-      } else {
-        dispatch(authActions.failureSetUser());
-      }
-    });
+    })
+      .then(async (res) => {
+        if (res.ok) {
+          console.log("ok");
+          dispatch(authActions.successSetUser());
+        } else {
+          const data = await res.json();
+          // const error = data.message;
+          return Promise.reject(data);
+          // dispatch(authActions.failureSetUser(error));
+        }
+      })
+      .catch((error) => {
+        console.log(error.message);
+        dispatch(authActions.failureSetUser(error.message));
+      });
   };
 export default { getToken, getUsers, setUser, getPositions };

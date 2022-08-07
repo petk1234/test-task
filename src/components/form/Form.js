@@ -6,50 +6,50 @@ import RadioButtons from "../radio-buttons/RadioButtons";
 import Textarea from "../textarea/Textarea";
 import success from "./success.svg";
 import styles from "./formStyles.module.scss";
+import useInput from "./useInput";
 function Form() {
-  const [position, setPosition] = useState();
-  const [photo, setImage] = useState();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+  const inp = useInput();
+
+  const {
+    name,
+    minName,
+    maxName,
+    email,
+    isEmail,
+    minEmail,
+    maxEmail,
+    isPhone,
+    phone,
+    position,
+    photo,
+    imgSize,
+    imgEmpty,
+    // isAble,
+    outsideHandleInput,
+    outsideBlurInput,
+    outsideHandlePosition,
+    outsideHandleImgFile,
+    outSideHandleAddUser,
+  } = inp;
+
   const [token, signedUp] = useSelector((state) => [
     state.usersInfo.token,
     state.usersInfo.signedUp,
   ]);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   let placeholderArr = ["Your name", "Email", "Phone"];
 
-  const outsideHandleInput = (input, placeholder) => {
-    if (placeholder === "Your name") {
-      setName(input);
-    }
-    if (placeholder === "Email") {
-      setEmail(input);
-    }
-    if (placeholder === "Phone") {
-      setPhone(input);
-    }
-  };
-
-  const outsideHandlePosition = (id, position) => {
-    setPosition({ id, position });
-  };
-
-  const outsideHandleImgFile = (img) => {
-    setImage(img);
-    console.log(img);
-  };
-
   const handleAddUser = (e) => {
-    e.preventDefault();
-    console.log(photo);
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("email", email);
-    formData.append("phone", phone);
-    formData.append("position_id", position.id);
-    formData.append("photo", photo);
-    dispatch(authOperations.setUser(token, formData));
+    outSideHandleAddUser(e, token);
+    // e.preventDefault();
+    // console.log(photo);
+    // const formData = new FormData();
+    // formData.append("name", name);
+    // formData.append("email", email);
+    // formData.append("phone", phone);
+    // formData.append("position_id", position.id);
+    // formData.append("photo", photo);
+    // dispatch(authOperations.setUser(token, formData));
   };
 
   return (
@@ -63,11 +63,35 @@ function Form() {
             <Inputs
               placeholderArr={placeholderArr}
               onHandleInput={outsideHandleInput}
+              onBlurInput={outsideBlurInput}
+              inp={inp}
             />
             <RadioButtons outsideOnPosition={outsideHandlePosition} />
 
-            <Textarea onImgFile={outsideHandleImgFile} />
-            <button className={styles.signUpSection__button} type="submit">
+            <Textarea onImgFile={outsideHandleImgFile} inp={inp} />
+            <button
+              className={styles.signUpSection__button}
+              type="submit"
+              // disabled={isAble ? false : true}
+              disabled={
+                name !== "" &&
+                minName === false &&
+                maxName === false &&
+                email !== "" &&
+                isEmail === true &&
+                minEmail === false &&
+                maxEmail === false &&
+                isPhone === true &&
+                phone !== "" &&
+                position !== undefined &&
+                photo !== -1 &&
+                imgSize === true &&
+                imgEmpty === false
+                  ? false
+                  : true
+              }
+              onClick={() => console.log("loxloxlox")}
+            >
               Sign up
             </button>
           </form>

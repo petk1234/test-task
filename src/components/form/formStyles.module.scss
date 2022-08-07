@@ -42,6 +42,9 @@
     &:hover {
       background: #ffe302;
     }
+    &:disabled {
+      background: #b4b4b4;
+    }
   }
 
   &__img {

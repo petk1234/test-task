@@ -31,6 +31,7 @@ function RadioButtons(props) {
                 value={position.name}
                 onChange={handlePosition}
                 id={position.name}
+                required
               />
               <label
                 className={styles.signUpSection__position}
