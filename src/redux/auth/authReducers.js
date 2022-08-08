@@ -28,31 +28,30 @@ const page = createReducer(1, {
   },
   [authActions.successSetUser]: (state, { type, payload }) => 1,
 });
-const isLoading = createReducer(false, {
-  [authActions.requestGetToken]: () => true,
-  [authActions.successGetToken]: () => false,
-  [authActions.failureGetToken]: () => false,
-  [authActions.requestSetUser]: () => true,
-  [authActions.successSetUser]: () => false,
-  [authActions.failureSetUser]: () => false,
-  [authActions.requestGetUsers]: () => true,
-  [authActions.successGetUsers]: () => false,
-  [authActions.failureGetUsers]: () => false,
+const isLoading = createReducer("", {
+  [authActions.requestGetToken]: () => "token",
+  [authActions.successGetToken]: () => "",
+  [authActions.failureGetToken]: () => "",
+  [authActions.requestSetUser]: () => "setUser",
+  [authActions.successSetUser]: () => "",
+  [authActions.failureSetUser]: () => "",
+  [authActions.requestGetUsers]: () => "getUsers",
+  [authActions.successGetUsers]: () => "",
+  [authActions.failureGetUsers]: () => "",
 });
 const error = createReducer("", {
   [authActions.failureSetUser]: (state, { type, payload }) => {
-    console.log(payload);
     return payload;
   },
   [authActions.successSetUser]: () => "",
 });
 const rootReducer = combineReducers({
+  isLoading: isLoading,
   token: token,
   signedUp: signedUp,
   positions: positions,
   users: users,
   page: page,
   error: error,
-  isLoading: isLoading,
 });
 export default rootReducer;

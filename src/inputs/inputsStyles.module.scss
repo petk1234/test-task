@@ -3,6 +3,9 @@
   font-weight: 400;
   font-size: 12px;
 }
+$errorColor: #cb3d40;
+$themeColor: #e5e5e5;
+$templateColor: #7e7e7e;
 .signUpSection {
   &__inputsContainer {
     display: flex;
@@ -11,10 +14,6 @@
     padding: 0;
     margin-bottom: 0;
   }
-  // &__error {
-  //   opacity: 1;
-  //   margin: 0;
-  // }
   &__inputContainer {
     list-style: none;
     position: relative;
@@ -36,9 +35,8 @@
     width: 328px;
     height: 54px;
     padding-left: 16px;
-    background-color: #e5e5e5;
+    background-color: $themeColor;
     border-radius: 4px;
-    // margin-bottom: 50px;
     outline: none;
     border: 1px solid #d0cfcf;
     @media all and (min-width: 768px) {
@@ -51,83 +49,34 @@
       opacity: 0;
       position: absolute;
     }
-    // &:placeholder-shown {
-    // border-color: peru;
-    // border: none;
-    // background-color: transparent;
-    // resize: none;
-    // outline: none;
-    // }
-    &:focus {
-      // border-color: green;
-      // &:placeholder-shown {
-      //   border-color: peru;
-      // }
-      &:not(:placeholder-shown) ~ .signUpSection__inputTitle {
-        // & Title {
-        @include textFeatures;
-        opacity: 1;
-        position: absolute;
-        top: 0;
-        left: 15px;
-
-        transform: translateY(-50%);
-        background-color: #e5e5e5;
-        // }
-      }
+    &:not(:placeholder-shown) ~ .signUpSection__inputTitle {
+      @include textFeatures;
+      opacity: 1;
+      position: absolute;
+      top: 0;
+      left: 15px;
+      color: $templateColor;
+      transform: translateY(-50%);
+      background-color: $themeColor;
     }
-
-    &:not(:focus) {
-      // border-color: green;
-      // &:placeholder-shown {
-      //   border-color: peru;
-      // }
-      // &:placeholder-shown ~ .signUpSection__inputTitle {
-      //   opacity: 0;
-      // }
-      &:not(:placeholder-shown) ~ .signUpSection__inputTitle {
-        // & Title {
-        @include textFeatures;
-        opacity: 1;
-        position: absolute;
-        top: 0;
-        left: 15px;
-
-        transform: translateY(-50%);
-        background-color: #e5e5e5;
-        // }
-      }
-    }
-
-    // &:invalid:required {
-    //   border: 2px dashed red;
-    // }
   }
   &__phoneTemplate {
     @include textFeatures;
     margin: 0 0 0 10px;
-    color: #7e7e7e;
+    color: $templateColor;
     margin-bottom: 25px;
-    // position: absolute;
-    // top: 60px;
   }
 
   &__errorTemplate {
     @include textFeatures;
     margin: 0 0 0 10px;
-    color: #7e7e7e;
-    // margin-bottom: 25px;
-    // position: absolute;
-    // top: 60px;
-    color: red;
-    // &:last-child {
-    //   margin: 0;
-    // }
+    color: $templateColor;
+    color: $errorColor;
   }
-}
-.redTitle {
-  color: red;
-}
-.redBorder {
-  border-color: red;
+  &__redTitle {
+    color: $errorColor !important;
+  }
+  &__redBorder {
+    border: 2px solid $errorColor;
+  }
 }

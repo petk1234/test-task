@@ -1,19 +1,8 @@
 import { Fragment } from "react";
 import InputErrors from "./InputErrors";
 import styles from "./inputsStyles.module.scss";
+import classChanger from "./classChanger";
 function Inputs({ placeholderArr, onHandleInput, onBlurInput, inp }) {
-  console.log(inp);
-  const {
-    isDirtyName,
-
-    isDirtyEmail,
-
-    isDirtyPhone,
-
-    borderColorName,
-    borderColorEmail,
-    borderColorPhone,
-  } = inp;
   return (
     <>
       <ul className={styles.signUpSection__inputsContainer}>
@@ -21,17 +10,7 @@ function Inputs({ placeholderArr, onHandleInput, onBlurInput, inp }) {
           <Fragment key={placeholder}>
             <li className={styles.signUpSection__inputContainer}>
               <input
-                className={
-                  (borderColorName === "" && placeholder === isDirtyName) ||
-                  (isDirtyName !== "Your name" &&
-                    placeholder === "Your name") ||
-                  (borderColorEmail === "" && placeholder === isDirtyEmail) ||
-                  (isDirtyEmail !== "Email" && placeholder === "Email") ||
-                  (borderColorPhone === "" && placeholder === isDirtyPhone) ||
-                  (isDirtyPhone !== "Phone" && placeholder === "Phone")
-                    ? styles.signUpSection__input
-                    : `${styles.redBorder} ${styles.signUpSection__input}`
-                }
+                className={classChanger("input", inp, placeholder)}
                 key={placeholder}
                 type={placeholder !== "Phone" ? "text" : "tel"}
                 onChange={(e) =>
@@ -41,19 +20,7 @@ function Inputs({ placeholderArr, onHandleInput, onBlurInput, inp }) {
                 placeholder={placeholder}
                 required
               />
-              <p
-                className={
-                  (borderColorName === "" && placeholder === isDirtyName) ||
-                  (isDirtyName !== "Your name" &&
-                    placeholder === "Your name") ||
-                  (borderColorEmail === "" && placeholder === isDirtyEmail) ||
-                  (isDirtyEmail !== "Email" && placeholder === "Email") ||
-                  (borderColorPhone === "" && placeholder === isDirtyPhone) ||
-                  (isDirtyPhone !== "Phone" && placeholder === "Phone")
-                    ? styles.signUpSection__inputTitle
-                    : `${styles.redTitle} ${styles.signUpSection__inputTitle}`
-                }
-              >
+              <p className={classChanger("title", inp, placeholder)}>
                 {placeholder}
               </p>
               <InputErrors inp={inp} placeholder={placeholder} input="error" />

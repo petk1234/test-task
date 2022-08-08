@@ -1,6 +1,8 @@
 import styles from "./inputsStyles.module.scss";
 function InputErrors({ inp, placeholder }) {
   const {
+    email,
+    phone,
     isDirtyName,
     minName,
     maxName,
@@ -16,12 +18,12 @@ function InputErrors({ inp, placeholder }) {
     <>
       {(isDirtyName === placeholder && minName && (
         <p className={styles.signUpSection__errorTemplate}>
-          input is too short
+          Input is too short
         </p>
       )) ||
         (isDirtyName === placeholder && maxName && (
           <p className={styles.signUpSection__errorTemplate}>
-            input is too long
+            Input is too long
           </p>
         ))}
 
@@ -33,18 +35,20 @@ function InputErrors({ inp, placeholder }) {
         )) ||
         (isDirtyEmail === placeholder && minEmail && (
           <p className={styles.signUpSection__errorTemplate}>
-            input is too short
+            Input is too short
           </p>
         )) ||
         (isDirtyEmail === placeholder && maxEmail && (
           <p className={styles.signUpSection__errorTemplate}>
-            input is too long
+            Input is too long
           </p>
-        ))}
-      {(isDirtyEmail === placeholder || isDirtyPhone === placeholder) &&
-        serverError !== "" && (
-          <p className={styles.signUpSection__errorTemplate}>{serverError}</p>
-        )}
+        )) ||
+        ((isDirtyEmail === placeholder || isDirtyPhone === placeholder) &&
+          serverError !== "" &&
+          ((email === "" && isDirtyEmail === placeholder) ||
+            (phone === "" && isDirtyPhone === placeholder)) && (
+            <p className={styles.signUpSection__errorTemplate}>{serverError}</p>
+          ))}
 
       {isDirtyPhone === placeholder && isPhone === false && (
         <p className={styles.signUpSection__errorTemplate}>

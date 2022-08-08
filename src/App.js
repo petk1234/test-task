@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import authOperations from "./redux/auth/authOperations";
 import ListCards from "./components/listCards/ListCards";
 import Form from "./components/form/Form";

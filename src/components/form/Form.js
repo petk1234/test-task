@@ -6,8 +6,6 @@ import Preloader from "../loader/Preloader";
 import GreetUser from "../afterSignedUp/GreetUser";
 import styles from "./formStyles.module.scss";
 import useInput from "./useInput";
-// import { Spinner } from "reactstrap";
-// import { MDBSpinner } from "mdb-react-ui-kit";
 function Form() {
   const inp = useInput();
 
@@ -22,9 +20,9 @@ function Form() {
   } = inp;
 
   const [token, signedUp, isLoading] = useSelector((state) => [
-    state.usersInfo.token,
-    state.usersInfo.signedUp,
-    state.usersInfo.isLoading,
+    state.token,
+    state.signedUp,
+    state.isLoading,
   ]);
 
   let placeholderArr = ["Your name", "Email", "Phone"];
@@ -36,7 +34,7 @@ function Form() {
           <h1 className={styles.signUpSection__title}>
             Working with POST request
           </h1>
-          {!isLoading ? (
+          {isLoading !== "setUser" ? (
             <>
               <form
                 className={styles.signUpSection__form}
@@ -65,12 +63,7 @@ function Form() {
               </form>
             </>
           ) : (
-            // <p>Loader</p>
-            <Preloader />
-            // <Spinner type="grow" color="light" />
-            // <MDBSpinner color="primary">
-            //   <span className="visually-hidden">Loading.</span>
-            // </MDBSpinner>
+            isLoading === "setUser" && <Preloader />
           )}
         </>
       ) : (

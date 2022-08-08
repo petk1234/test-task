@@ -4,7 +4,7 @@ import useValidate from "./useValidate";
 import { useDispatch } from "react-redux";
 import authOperations from "../../redux/auth/authOperations";
 function useInput() {
-  const serverError = useSelector((state) => state.usersInfo.error);
+  const serverError = useSelector((state) => state.error);
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [isDirtyName, setDirtyName] = useState("");
@@ -109,6 +109,7 @@ function useInput() {
     formData.append("photo", photo);
 
     setName("");
+    setDirtyName("");
     setEmail("");
     setPhone("");
     setPosition({});
@@ -121,26 +122,20 @@ function useInput() {
     isDirtyName,
     minName,
     maxName,
-
     email,
     isDirtyEmail,
     minEmail,
     maxEmail,
     isEmail,
-
     serverError,
-
     isDirtyPhone,
     isPhone,
     phone,
-
     position,
-
     photo,
     isDirtyPhoto,
     imgSize,
     imgEmpty,
-
     isAble,
     borderColorName,
     borderColorEmail,

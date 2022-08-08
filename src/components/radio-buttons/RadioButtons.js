@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import authOperations from "../../redux/auth/authOperations";
 import styles from "./radioButtonsStyles.module.scss";
 function RadioButtons(props) {
-  const positions = useSelector((state) => state.usersInfo.positions);
+  const positions = useSelector((state) => state.positions);
   const dispatch = useDispatch();
 
   useEffect(() => {

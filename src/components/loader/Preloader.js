@@ -1,5 +1,4 @@
 import Spinner from "react-bootstrap/Spinner";
-// import "bootstrap/dist/css/bootstrap.css";
 import styles from "./loaderStyles.module.scss";
 function Preloader() {
   return (

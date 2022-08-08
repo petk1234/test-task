@@ -7,9 +7,9 @@ import styles from "./listCardsStyles.module.scss";
 function ListCards() {
   const [shouldUpdate, setUpdate] = useState(false);
   const [users, page, isLoading] = useSelector((state) => [
-    state.usersInfo.users,
-    state.usersInfo.page,
-    state.usersInfo.isLoading,
+    state.users,
+    state.page,
+    state.isLoading,
   ]);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -39,7 +39,7 @@ function ListCards() {
             <Card key={user.id} user={user} />
           ))}
         </ul>
-        {!isLoading ? (
+        {isLoading == "" ? (
           <>
             {page !== 0 && (
               <button
@@ -51,7 +51,7 @@ function ListCards() {
             )}
           </>
         ) : (
-          <Preloader />
+          isLoading === "getUsers" && <Preloader />
         )}
       </div>
     </section>

@@ -3,6 +3,9 @@
   font-weight: 400;
   font-size: 16px;
 }
+$errorColor: #cb3d40;
+$themeColor: #e5e5e5;
+$templateColor: #7e7e7e;
 .signUpSection {
   &__fileContainer {
     position: relative;
@@ -41,12 +44,25 @@
     font-family: "Nunito";
     font-weight: 400;
     font-size: 16px;
-    background-color: #fff;
+    border-radius: 0 4px 4px 0;
+    background-color: $themeColor;
     @media all and (min-width: 768px) {
       width: 297px;
     }
   }
-}
-.red {
-  border-color: red;
+  &__errorTemplate {
+    @include textFeatures;
+    margin: 0 0 0 10px;
+    font-size: 12px;
+    color: $templateColor;
+    color: $errorColor;
+  }
+  &__redBorderTextarea {
+    border-width: 2px 2px 2px 1px;
+    border-color: #cb3d40;
+  }
+  &__redBorderButton {
+    border-width: 2px 1px 2px 2px;
+    border-color: #cb3d40;
+  }
 }

@@ -6,7 +6,6 @@ const tokenActions = {
   set(token) {
     axios.defaults.headers.common.Token = token;
     axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-    // return token;
   },
   unset() {
     axios.defaults.headers.common.Authorization = ``;
@@ -14,25 +13,35 @@ const tokenActions = {
 };
 const getToken = () => (dispatch) => {
   dispatch(authActions.requestGetToken());
-  axios
-    .get("/token")
+  fetch("https://frontend-test-assignment-api.abz.agency/api/v1/token")
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject(res.message);
+      }
+    })
     .then((data) => {
-      console.log(data.data.token);
-      tokenActions.set(data.data.token);
-      console.log(axios.defaults.headers.common.Authorization);
-      console.log(data);
-      dispatch(authActions.successGetToken(data.data.token));
+      tokenActions.set(data.token);
+      dispatch(authActions.successGetToken(data.token));
     })
     .catch((error) => dispatch(authActions.failureGetToken()));
 };
 
 const getUsers = (page) => (dispatch) => {
   dispatch(authActions.requestGetUsers());
-  axios
-    .get(`/users?page=${page}&count=6`)
+  fetch(
+    `https://frontend-test-assignment-api.abz.agency/api/v1/users?page=${page}&count=6`
+  )
+    .then(async (res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject(res.message);
+      }
+    })
     .then((data) => {
-      console.log(data);
-      dispatch(authActions.successGetUsers(data.data));
+      dispatch(authActions.successGetUsers(data));
     })
     .catch((error) => dispatch(authActions.failureGetUsers()));
 };
@@ -42,104 +51,38 @@ const getPositions = () => (dispatch) => {
   fetch("https://frontend-test-assignment-api.abz.agency/api/v1/positions")
     .then((res) => {
       if (res.ok) {
-        console.log(res);
         return res.json();
       } else {
         return Promise.reject(res.message);
       }
     })
     .then((data) => {
-      console.log(data);
       dispatch(authActions.successGetPositions(data.positions));
     })
     .catch((error) => {
-      console.log("It is an error occured");
       dispatch(authActions.failureGetPositions());
     });
 };
 
-// getButtons;
-
-// const setUser = (name, email, phone, position_id, photo) => (dispatch) => {
-//   // let res = await axios.get(
-//   //   "https://frontend-test-assignment-api.abz.agency/api/v1/token"
-//   // );
-//   // console.log(res.data.token);
-//   // tokenActions.set(res.data.token);
-//   console.log(name);
-//   // const formData = { name, email, phone, position_id, photo };
-//   // const formData = new FormData();
-//   // formData.append("name", "John");
-//   // formData.append("name", name);
-//   // formData.append("email", email);
-//   // formData.append("phone", phone);
-//   // formData.append("position_id", position_id);
-//   // formData.append("photo", photo);
-//   const config = {
-//     headers: {
-//       "Content-type": "multipart/form-data",
-//     },
-//     body: name,
-//   };
-//   // console.log(Array.from(formData));
-//   dispatch(authActions.requestSetUser());
-//   console.log(axios.defaults.headers.common.Authorization);
-//   axios("/users", name, {
-//     method: "post",
-//     body: name,
-//     headers: {
-//       "Content-type": "multipart/form-data",
-//     },
-//   }).then((data) => console.log(data));
-// };
-
-const setUser =
-  (token, name, email, phone, position_id, photo) => (dispatch) => {
-    console.log(name);
-    // const config = {
-    //   headers: {
-    //     "Content-type": "multipart/form-data",
-    //   },
-    //   body: name,
-    // };
-    // console.log(Array.from(formData));
-    // dispatch(authActions.requestSetUser());
-    // console.log(axios.defaults.headers.common.Authorization);
-    // fetch("https://frontend-test-assignment-api.abz.agency/api/v1/users", {
-    //   method: "POST",
-    //   body: name,
-    //   headers: {
-    //     // "Content-type": "multipart/form-data",
-    //     Token: token,
-    //   },
-    // }).then((data) => {
-    //   console.log(data);
-    //   dispatch(authActions.successSetUser());
-    // });
-
-    dispatch(authActions.requestSetUser());
-    console.log(axios.defaults.headers.common.Authorization);
-    fetch("https://frontend-test-assignment-api.abz.agency/api/v1/users", {
-      method: "POST",
-      body: name,
-      headers: {
-        Token: token,
-      },
+const setUser = (token, name) => (dispatch) => {
+  dispatch(authActions.requestSetUser());
+  fetch("https://frontend-test-assignment-api.abz.agency/api/v1/users", {
+    method: "POST",
+    body: name,
+    headers: {
+      Token: token,
+    },
+  })
+    .then(async (res) => {
+      if (res.ok) {
+        dispatch(authActions.successSetUser());
+      } else {
+        const data = await res.json();
+        return Promise.reject(data);
+      }
     })
-      .then(async (res) => {
-        if (res.ok) {
-          console.log("ok");
-          dispatch(authActions.successSetUser());
-        } else {
-          const data = await res.json();
-          // const error = data.message;
-          return Promise.reject(data);
-          // dispatch(authActions.failureSetUser(error));
-        }
-      })
-      .catch((error) => {
-        console.log(error.message);
-        dispatch(authActions.failureSetUser(error.message));
-      });
-  };
+    .catch((error) => {
+      dispatch(authActions.failureSetUser(error.message));
+    });
+};
 export default { getToken, getUsers, setUser, getPositions };
