@@ -1,77 +1,54 @@
 import { useEffect, useState } from "react";
 
-function useValidate(value, validations) {
-  //   const [isEmpty, setEmpty] = useState(true);
+function useValidate(values, validations) {
   const [minLength, setMinLength] = useState(true);
   const [maxLength, setMaxLength] = useState(true);
   const [isEmail, setIsEmail] = useState(false);
   const [isPhone, setIsPhone] = useState(false);
-  const [phoneLength, setPhoneLength] = useState(false);
   const [imgSize, setImgSize] = useState(true);
-  const [imgEmpty, setImgEmpty] = useState(false);
+  const [imgEmpty, setImgEmpty] = useState(true);
   const [serverError, setServerError] = useState("");
+  const [isAble, setIsAble] = useState(false);
+  const [borderColorName, setBorderColorName] = useState("");
+  const [borderColorEmail, setBorderColorEmail] = useState("");
+  const [borderColorPhone, setBorderColorPhone] = useState("");
   useEffect(() => {
-    if (value) {
+    if (values[0]) {
       for (let validation in validations) {
-        console.log(validation);
         switch (validation) {
           case validations.serverError:
             setServerError(validations.serverError);
-          //   case "isEmpty":
-          //     console.log("it is IsEmtyCase");
-          //     if (value.length === 0) {
-          //       setEmpty(true);
-          //     } else {
-          //       setEmpty(false);
-          //     }
           case "minLength":
-            if (value.length < validations[validation]) {
+            if (values[0].length < validations[validation]) {
               setMinLength(true);
             } else {
               setMinLength(false);
             }
           case "maxLength":
-            if (value.length > validations[validation]) {
+            if (values[0].length > validations[validation]) {
               setMaxLength(true);
             } else {
               setMaxLength(false);
             }
           case "isEmail":
-            console.log(validations[validation]);
-            console.log("it is IsEmailCase");
-            // const reEmail =
-            //   /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
             const reEmail =
               /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/i;
-            if (value.match(reEmail)) {
+            if (values[0].match(reEmail)) {
               setIsEmail(true);
             } else {
               setIsEmail(false);
             }
 
           case "isPhone":
-            console.log("it is IsPhoneCase");
-            // const rePhone = /[3][8][0][0-9]/;
             const rePhone = /^[\+]{0,1}380[0-9]{9}$/;
-            console.log(value);
-            console.log(Number(value));
-            if (rePhone.test(Number(value)) && value[0] === "+") {
-              console.log("lolololo");
+            if (rePhone.test(Number(values[0])) && values[0][0] === "+") {
               setIsPhone(true);
             } else {
-              console.log("nonono");
               setIsPhone(false);
             }
 
-          //   case "phoneLength":
-          //     if (value.length !== 13) {
-          //       setPhoneLength(true);
-          //     } else {
-          //       setPhoneLength(false);
-          //     }
-
           case "imgSize":
-            if (value.size > 5000) {
+            if (values[0].size > 5000) {
               //1024000 * 5
               setImgSize(false);
             } else {
@@ -79,34 +56,107 @@ function useValidate(value, validations) {
             }
 
           case "imgEmpty":
-            console.log("it is IsEmptyImgCase");
-            console.log(value);
-            if (Number(value) === -1) {
-              console.log("emememememem");
+            if (Number(values[0]) === -1) {
               setImgEmpty(true);
             } else {
               setImgEmpty(false);
             }
         }
-        // if (value.length === 0) {
-        //   setEmpty(true);
-        // } else {
-        //   setEmpty(false);
-        // }
       }
     }
-  }, [value]);
+  }, [values[0]]);
+  let [
+    name,
+    minName,
+    maxName,
+    email,
+    isEmail_,
+    minEmail,
+    maxEmail,
+    isPhone_,
+    phone,
+    position,
+    photo,
+    imgSize_,
+    imgEmpty_,
+  ] = values;
+  useEffect(() => {
+    if (
+      name !== "" &&
+      minName === false &&
+      maxName === false &&
+      email !== "" &&
+      isEmail_ === true &&
+      minEmail === false &&
+      maxEmail === false &&
+      isPhone_ === true &&
+      phone !== "" &&
+      position !== undefined &&
+      photo !== -1 &&
+      imgSize_ === true &&
+      imgEmpty_ === false
+    ) {
+      console.log("able");
+      setIsAble(true);
+      console.log(isAble);
+    } else {
+      console.log("not able");
+      setIsAble(false);
+    }
+  }, [...values]);
+
+  useEffect(() => {
+    name !== "" && minName === false && maxName === false
+      ? setBorderColorName("")
+      : setBorderColorName("red");
+
+    // email !== "" &&
+    // isEmail_ === true &&
+    // minEmail === false &&
+    // maxEmail === false
+    //   ? setBorderColor("")
+    //   : setBorderColor("red");
+
+    // isPhone_ === true && phone !== ""
+    //   ? setBorderColor("")
+    //   : setBorderColor("red");
+  }, [...values]);
+
+  useEffect(() => {
+    let [email__, isEmail__, minEmail__, maxEmail__] = values;
+    // console.log(email__, isEmail__, minEmail__, maxEmail__);
+    // console.log(name, minName, maxName, email);
+    // values[0] !== "" &&
+    // values[1] === true &&
+    // values[2] === false &&
+    // values[3] === false
+    email__ !== "" &&
+    isEmail__ === true &&
+    minEmail__ === false &&
+    maxEmail__ === false
+      ? setBorderColorEmail("")
+      : setBorderColorEmail("red");
+  }, [...values]);
+
+  useEffect(() => {
+    let [isPhone__, phone__] = values;
+    isPhone__ === true && phone__ !== ""
+      ? setBorderColorPhone("")
+      : setBorderColorPhone("red");
+  }, [...values]);
 
   return {
     serverError,
-    // isEmpty,
     minLength,
     maxLength,
     isEmail,
     isPhone,
-    // phoneLength,
     imgSize,
     imgEmpty,
+    isAble,
+    borderColorName,
+    borderColorEmail,
+    borderColorPhone,
   };
 }
 export default useValidate;

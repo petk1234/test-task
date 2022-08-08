@@ -1,56 +1,33 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import authOperations from "../../redux/auth/authOperations";
+import { useSelector } from "react-redux";
 import Inputs from "../../inputs/Inputs";
 import RadioButtons from "../radio-buttons/RadioButtons";
 import Textarea from "../textarea/Textarea";
-import success from "./success.svg";
+import Preloader from "../loader/Preloader";
+import GreetUser from "../afterSignedUp/GreetUser";
 import styles from "./formStyles.module.scss";
 import useInput from "./useInput";
+// import { Spinner } from "reactstrap";
+// import { MDBSpinner } from "mdb-react-ui-kit";
 function Form() {
   const inp = useInput();
 
   const {
-    name,
-    minName,
-    maxName,
-    email,
-    isEmail,
-    minEmail,
-    maxEmail,
-    isPhone,
-    phone,
-    position,
-    photo,
-    imgSize,
-    imgEmpty,
-    // isAble,
+    isAble,
     outsideHandleInput,
     outsideBlurInput,
     outsideHandlePosition,
     outsideHandleImgFile,
     outSideHandleAddUser,
+    outsideBlurPhoto,
   } = inp;
 
-  const [token, signedUp] = useSelector((state) => [
+  const [token, signedUp, isLoading] = useSelector((state) => [
     state.usersInfo.token,
     state.usersInfo.signedUp,
+    state.usersInfo.isLoading,
   ]);
-  // const dispatch = useDispatch();
-  let placeholderArr = ["Your name", "Email", "Phone"];
 
-  const handleAddUser = (e) => {
-    outSideHandleAddUser(e, token);
-    // e.preventDefault();
-    // console.log(photo);
-    // const formData = new FormData();
-    // formData.append("name", name);
-    // formData.append("email", email);
-    // formData.append("phone", phone);
-    // formData.append("position_id", position.id);
-    // formData.append("photo", photo);
-    // dispatch(authOperations.setUser(token, formData));
-  };
+  let placeholderArr = ["Your name", "Email", "Phone"];
 
   return (
     <section className={styles.signUpSection} id="form">
@@ -59,50 +36,45 @@ function Form() {
           <h1 className={styles.signUpSection__title}>
             Working with POST request
           </h1>
-          <form className={styles.signUpSection__form} onSubmit={handleAddUser}>
-            <Inputs
-              placeholderArr={placeholderArr}
-              onHandleInput={outsideHandleInput}
-              onBlurInput={outsideBlurInput}
-              inp={inp}
-            />
-            <RadioButtons outsideOnPosition={outsideHandlePosition} />
+          {!isLoading ? (
+            <>
+              <form
+                className={styles.signUpSection__form}
+                onSubmit={(e) => outSideHandleAddUser(e, token)}
+              >
+                <Inputs
+                  placeholderArr={placeholderArr}
+                  onHandleInput={outsideHandleInput}
+                  onBlurInput={outsideBlurInput}
+                  inp={inp}
+                />
+                <RadioButtons outsideOnPosition={outsideHandlePosition} />
 
-            <Textarea onImgFile={outsideHandleImgFile} inp={inp} />
-            <button
-              className={styles.signUpSection__button}
-              type="submit"
-              // disabled={isAble ? false : true}
-              disabled={
-                name !== "" &&
-                minName === false &&
-                maxName === false &&
-                email !== "" &&
-                isEmail === true &&
-                minEmail === false &&
-                maxEmail === false &&
-                isPhone === true &&
-                phone !== "" &&
-                position !== undefined &&
-                photo !== -1 &&
-                imgSize === true &&
-                imgEmpty === false
-                  ? false
-                  : true
-              }
-              onClick={() => console.log("loxloxlox")}
-            >
-              Sign up
-            </button>
-          </form>
+                <Textarea
+                  onImgFile={outsideHandleImgFile}
+                  inp={inp}
+                  onBlurPhoto={outsideBlurPhoto}
+                />
+                <button
+                  className={styles.signUpSection__button}
+                  type="submit"
+                  disabled={isAble ? false : true}
+                >
+                  Sign up
+                </button>
+              </form>
+            </>
+          ) : (
+            // <p>Loader</p>
+            <Preloader />
+            // <Spinner type="grow" color="light" />
+            // <MDBSpinner color="primary">
+            //   <span className="visually-hidden">Loading.</span>
+            // </MDBSpinner>
+          )}
         </>
       ) : (
-        <div className={styles.signUpSection__formPosted}>
-          <h1 className={styles.signUpSection__title}>
-            User successfully registered
-          </h1>
-          <img className={styles.signUpSection__img} src={success} alt="" />
-        </div>
+        <GreetUser />
       )}
     </section>
   );

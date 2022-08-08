@@ -34,7 +34,8 @@
   &__textarea {
     @include textFeatures;
     width: 245px;
-    height: 22px;
+    height: 54px;
+    box-sizing: border-box;
     padding: 15px 0 15px 16px;
     line-height: 24px;
     font-family: "Nunito";
@@ -42,7 +43,10 @@
     font-size: 16px;
     background-color: #fff;
     @media all and (min-width: 768px) {
-      width: 291px;
+      width: 297px;
     }
   }
+}
+.red {
+  border-color: red;
 }

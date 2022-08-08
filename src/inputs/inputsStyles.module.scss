@@ -1,5 +1,5 @@
 @mixin textFeatures {
-  font-family: "Nunito";
+  font-family: "Nunito" !important;
   font-weight: 400;
   font-size: 12px;
 }
@@ -8,28 +8,126 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
+    padding: 0;
+    margin-bottom: 0;
+  }
+  // &__error {
+  //   opacity: 1;
+  //   margin: 0;
+  // }
+  &__inputContainer {
+    list-style: none;
+    position: relative;
+    margin-bottom: 50px;
+    &:last-child .signUpSection__input {
+      margin-bottom: 0;
+    }
+    &:last-child .signUpSection__errorTemplate {
+      top: 70px;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
   &__input {
+    @include textFeatures;
+    font-size: 16px;
+    box-sizing: border-box;
     width: 328px;
     height: 54px;
     padding-left: 16px;
+    background-color: #e5e5e5;
     border-radius: 4px;
-    margin-bottom: 50px;
+    // margin-bottom: 50px;
+    outline: none;
     border: 1px solid #d0cfcf;
     @media all and (min-width: 768px) {
-      width: 364px;
+      width: 380px;
     }
     &:last-child {
       margin: 0;
     }
-    &:invalid:required {
-      border: 2px dashed red;
+    &Title {
+      opacity: 0;
+      position: absolute;
     }
+    // &:placeholder-shown {
+    // border-color: peru;
+    // border: none;
+    // background-color: transparent;
+    // resize: none;
+    // outline: none;
+    // }
+    &:focus {
+      // border-color: green;
+      // &:placeholder-shown {
+      //   border-color: peru;
+      // }
+      &:not(:placeholder-shown) ~ .signUpSection__inputTitle {
+        // & Title {
+        @include textFeatures;
+        opacity: 1;
+        position: absolute;
+        top: 0;
+        left: 15px;
+
+        transform: translateY(-50%);
+        background-color: #e5e5e5;
+        // }
+      }
+    }
+
+    &:not(:focus) {
+      // border-color: green;
+      // &:placeholder-shown {
+      //   border-color: peru;
+      // }
+      // &:placeholder-shown ~ .signUpSection__inputTitle {
+      //   opacity: 0;
+      // }
+      &:not(:placeholder-shown) ~ .signUpSection__inputTitle {
+        // & Title {
+        @include textFeatures;
+        opacity: 1;
+        position: absolute;
+        top: 0;
+        left: 15px;
+
+        transform: translateY(-50%);
+        background-color: #e5e5e5;
+        // }
+      }
+    }
+
+    // &:invalid:required {
+    //   border: 2px dashed red;
+    // }
   }
   &__phoneTemplate {
     @include textFeatures;
     margin: 0 0 0 10px;
     color: #7e7e7e;
     margin-bottom: 25px;
+    // position: absolute;
+    // top: 60px;
   }
+
+  &__errorTemplate {
+    @include textFeatures;
+    margin: 0 0 0 10px;
+    color: #7e7e7e;
+    // margin-bottom: 25px;
+    // position: absolute;
+    // top: 60px;
+    color: red;
+    // &:last-child {
+    //   margin: 0;
+    // }
+  }
+}
+.redTitle {
+  color: red;
+}
+.redBorder {
+  border-color: red;
 }

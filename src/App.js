@@ -5,6 +5,7 @@ import ListCards from "./components/listCards/ListCards";
 import Form from "./components/form/Form";
 import Header from "./components/header/Header";
 import InfoSection from "./components/info/InfoSection";
+import "bootstrap/dist/css/bootstrap.css";
 import "./appStyles.module.scss";
 function App() {
   const dispatch = useDispatch();

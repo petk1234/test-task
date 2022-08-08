@@ -2,12 +2,14 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import authOperations from "../../redux/auth/authOperations";
 import Card from "../card/Card";
+import Preloader from "../loader/Preloader";
 import styles from "./listCardsStyles.module.scss";
 function ListCards() {
   const [shouldUpdate, setUpdate] = useState(false);
-  const [users, page] = useSelector((state) => [
+  const [users, page, isLoading] = useSelector((state) => [
     state.usersInfo.users,
     state.usersInfo.page,
+    state.usersInfo.isLoading,
   ]);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -37,13 +39,19 @@ function ListCards() {
             <Card key={user.id} user={user} />
           ))}
         </ul>
-        {page !== 0 && (
-          <button
-            className={styles.usersSection__button}
-            onClick={loadMoreUsers}
-          >
-            Show more
-          </button>
+        {!isLoading ? (
+          <>
+            {page !== 0 && (
+              <button
+                className={styles.usersSection__button}
+                onClick={loadMoreUsers}
+              >
+                Show more
+              </button>
+            )}
+          </>
+        ) : (
+          <Preloader />
         )}
       </div>
     </section>

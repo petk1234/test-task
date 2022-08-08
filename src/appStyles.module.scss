@@ -4,3 +4,14 @@ body {
   background: #e5e5e5;
   // opacity: 0.5;
 }
+
+body,
+nav,
+ul,
+li,
+div {
+  box-sizing: content-box;
+}
+input {
+  box-sizing: border-box;
+}

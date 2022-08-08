@@ -8,12 +8,7 @@ function useInput() {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [isDirtyName, setDirtyName] = useState("");
-  const {
-    // isEmpty: isEmptyName,
-    minLength: minName,
-    maxLength: maxName,
-  } = useValidate(name, {
-    // isEmpty: "",
+  const { minLength: minName, maxLength: maxName } = useValidate([name], {
     minLength: 2,
     maxLength: 60,
   });
@@ -21,12 +16,10 @@ function useInput() {
   const [email, setEmail] = useState("");
   const [isDirtyEmail, setDirtyEmail] = useState("");
   const {
-    // isEmpty: isEmptyEmail,
     minLength: minEmail,
     maxLength: maxEmail,
     isEmail,
-  } = useValidate(email, {
-    // isEmpty: 3,
+  } = useValidate([email], {
     minLength: 2,
     maxLength: 100,
     isEmail: "",
@@ -35,30 +28,48 @@ function useInput() {
 
   const [phone, setPhone] = useState("");
   const [isDirtyPhone, setDirtyPhone] = useState("");
-  const {
-    // isEmpty: isEmptyPhone,
-    isPhone,
-    // phoneLength,
-  } = useValidate(phone, {
-    // isEmpty: "",
+  const { isPhone } = useValidate([phone], {
     isPhone: "",
-    // phoneLength: "",
   });
 
   const [position, setPosition] = useState();
   const [photo, setImage] = useState();
-  const { imgSize, imgEmpty } = useValidate(photo, {
+  const [isDirtyPhoto, setDirtyPhoto] = useState(false);
+  const { imgSize, imgEmpty } = useValidate([photo], {
     imgSize: "",
     imgEmpty: {},
   });
 
-  // const {isAble} = useValidate(valuefalse);
+  const { isAble } = useValidate([
+    name,
+    minName,
+    maxName,
+    email,
+    isEmail,
+    minEmail,
+    maxEmail,
+    isPhone,
+    phone,
+    position,
+    photo,
+    imgSize,
+    imgEmpty,
+  ]);
+
+  const { borderColorName } = useValidate([name, minName, maxName]);
+  const { borderColorEmail } = useValidate([
+    email,
+    isEmail,
+    minEmail,
+    maxEmail,
+  ]);
+  const { borderColorPhone } = useValidate([isPhone, phone]);
+
   const outsideHandleInput = (input, placeholder) => {
     if (placeholder === "Your name") {
       setName(input);
     }
     if (placeholder === "Email") {
-      console.log("accepted");
       setEmail(input);
     }
     if (placeholder === "Phone") {
@@ -69,15 +80,12 @@ function useInput() {
   const outsideBlurInput = (placeholder) => {
     if (placeholder === "Your name") {
       setDirtyName("Your name");
-      console.log("accepted blur name");
     }
     if (placeholder === "Email") {
       setDirtyEmail("Email");
-      console.log("accepted blur email");
     }
     if (placeholder === "Phone") {
       setDirtyPhone("Phone");
-      console.log("accepted blur phone");
     }
   };
 
@@ -85,76 +93,64 @@ function useInput() {
     setPosition({ id, position });
   };
   const outsideHandleImgFile = (img) => {
-    console.log(img);
-    console.log(typeof img);
     setImage(img);
-    console.log(img);
   };
-
-  // const readyToSubmit = () => {
-
-  // if (
-  //   name !== "" &&
-  //   minName === false &&
-  //   maxName === false &&
-  //   email !== "" &&
-  //   isEmail === true &&
-  //   minEmail === false &&
-  //   maxEmail === false &&
-  //   isPhone === true &&
-  //   phone !== "" &&
-  //   position !== undefined &&
-  //   photo !== -1 &&
-  //   imgSize === true &&
-  //   imgEmpty === false
-  // ) {
-  //   setIsAble(true);
-  // } else {
-  //   setIsAble(false);
-  // }
-  // };
+  const outsideBlurPhoto = () => {
+    setDirtyPhoto(true);
+  };
 
   const outSideHandleAddUser = (e, token) => {
     e.preventDefault();
-    console.log(photo);
     const formData = new FormData();
     formData.append("name", name);
     formData.append("email", email);
     formData.append("phone", phone);
     formData.append("position_id", position.id);
     formData.append("photo", photo);
+
+    setName("");
+    setEmail("");
+    setPhone("");
+    setPosition({});
+    setImage({});
     dispatch(authOperations.setUser(token, formData));
   };
 
   return {
     name,
     isDirtyName,
-    // isEmptyName,
     minName,
     maxName,
+
     email,
     isDirtyEmail,
-    // isEmptyEmail,
     minEmail,
     maxEmail,
     isEmail,
+
     serverError,
+
     isDirtyPhone,
-    // isEmptyPhone,
     isPhone,
-    // phoneLength,
     phone,
+
     position,
+
     photo,
+    isDirtyPhoto,
     imgSize,
     imgEmpty,
-    // isAble,
+
+    isAble,
+    borderColorName,
+    borderColorEmail,
+    borderColorPhone,
     outsideHandleInput,
     outsideBlurInput,
-
     outsideHandlePosition,
     outsideHandleImgFile,
     outSideHandleAddUser,
+    outsideBlurPhoto,
   };
 }
 export default useInput;

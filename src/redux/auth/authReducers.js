@@ -28,6 +28,17 @@ const page = createReducer(1, {
   },
   [authActions.successSetUser]: (state, { type, payload }) => 1,
 });
+const isLoading = createReducer(false, {
+  [authActions.requestGetToken]: () => true,
+  [authActions.successGetToken]: () => false,
+  [authActions.failureGetToken]: () => false,
+  [authActions.requestSetUser]: () => true,
+  [authActions.successSetUser]: () => false,
+  [authActions.failureSetUser]: () => false,
+  [authActions.requestGetUsers]: () => true,
+  [authActions.successGetUsers]: () => false,
+  [authActions.failureGetUsers]: () => false,
+});
 const error = createReducer("", {
   [authActions.failureSetUser]: (state, { type, payload }) => {
     console.log(payload);
@@ -42,5 +53,6 @@ const rootReducer = combineReducers({
   users: users,
   page: page,
   error: error,
+  isLoading: isLoading,
 });
 export default rootReducer;
