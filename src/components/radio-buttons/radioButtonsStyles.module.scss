@@ -31,12 +31,15 @@
     &:checked {
       border: 1px solid #00bdd3;
     }
-    &:checked:after {
+    &:checked:before {
       content: "";
       display: block;
-      width: 50%;
-      height: 50%;
+      width: 10px;
+      height: 10px;
       margin: 50%;
+      // margin: 0;
+      // margin-right: 100%;
+      // margin-bottom: 100%;
       transform: translate(-50%, -50%);
       border-radius: 50%;
       background: #00bdd3;
