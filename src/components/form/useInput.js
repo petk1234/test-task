@@ -35,9 +35,10 @@ function useInput() {
   const [position, setPosition] = useState();
   const [photo, setImage] = useState();
   const [isDirtyPhoto, setDirtyPhoto] = useState(false);
-  const { imgSize, imgEmpty } = useValidate([photo], {
+  const { imgSize, imgEmpty, isAppropriateType } = useValidate([photo], {
     imgSize: "",
     imgEmpty: {},
+    imgType: "",
   });
 
   const { isAble } = useValidate([
@@ -54,6 +55,7 @@ function useInput() {
     photo,
     imgSize,
     imgEmpty,
+    isAppropriateType,
   ]);
 
   const { borderColorName } = useValidate([name, minName, maxName]);
@@ -70,7 +72,7 @@ function useInput() {
       setName(input);
     }
     if (placeholder === "Email") {
-      setEmail(input);
+      setEmail(input.toLowerCase());
     }
     if (placeholder === "Phone") {
       setPhone(input);
@@ -98,7 +100,6 @@ function useInput() {
   const outsideBlurPhoto = () => {
     setDirtyPhoto(true);
   };
-
   const outSideHandleAddUser = (e, token) => {
     e.preventDefault();
     const formData = new FormData();
@@ -136,6 +137,7 @@ function useInput() {
     isDirtyPhoto,
     imgSize,
     imgEmpty,
+    isAppropriateType,
     isAble,
     borderColorName,
     borderColorEmail,

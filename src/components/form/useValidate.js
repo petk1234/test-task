@@ -7,6 +7,7 @@ function useValidate(values, validations) {
   const [isPhone, setIsPhone] = useState(false);
   const [imgSize, setImgSize] = useState(true);
   const [imgEmpty, setImgEmpty] = useState(true);
+  const [isAppropriateType, setisAppropriateType] = useState(true);
   const [serverError, setServerError] = useState("");
   const [isAble, setIsAble] = useState(false);
   const [borderColorName, setBorderColorName] = useState("");
@@ -45,6 +46,16 @@ function useValidate(values, validations) {
 
           case "imgEmpty":
             Number(values[0]) === -1 ? setImgEmpty(true) : setImgEmpty(false);
+          case "imgType":
+            if (values[0].name !== undefined) {
+              let idxDot = values[0].name.lastIndexOf(".") + 1;
+              let extFile = values[0].name
+                .substr(idxDot, values[0].name.length)
+                .toLowerCase();
+              extFile === "jpg" || extFile === "jpeg"
+                ? setisAppropriateType(true)
+                : setisAppropriateType(false);
+            }
         }
       }
     }
@@ -63,6 +74,7 @@ function useValidate(values, validations) {
     photo,
     imgSize_,
     imgEmpty_,
+    isAppropriateType_,
   ] = values;
   useEffect(() => {
     name !== "" &&
@@ -77,7 +89,8 @@ function useValidate(values, validations) {
     position !== undefined &&
     photo !== -1 &&
     imgSize_ === true &&
-    imgEmpty_ === false
+    imgEmpty_ === false &&
+    isAppropriateType_ === true
       ? setIsAble(true)
       : setIsAble(false);
   }, [...values]);
@@ -113,6 +126,7 @@ function useValidate(values, validations) {
     isPhone,
     imgSize,
     imgEmpty,
+    isAppropriateType,
     isAble,
     borderColorName,
     borderColorEmail,

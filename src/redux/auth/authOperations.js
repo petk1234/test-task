@@ -1,16 +1,4 @@
 import authActions from "./authActions";
-import axios from "axios";
-axios.defaults.baseURL =
-  "https://frontend-test-assignment-api.abz.agency/api/v1";
-const tokenActions = {
-  set(token) {
-    axios.defaults.headers.common.Token = token;
-    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-  },
-  unset() {
-    axios.defaults.headers.common.Authorization = ``;
-  },
-};
 const getToken = () => (dispatch) => {
   dispatch(authActions.requestGetToken());
   fetch("https://frontend-test-assignment-api.abz.agency/api/v1/token")
@@ -22,7 +10,6 @@ const getToken = () => (dispatch) => {
       }
     })
     .then((data) => {
-      tokenActions.set(data.token);
       dispatch(authActions.successGetToken(data.token));
     })
     .catch((error) => dispatch(authActions.failureGetToken()));

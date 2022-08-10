@@ -29,7 +29,7 @@ function Form() {
 
   return (
     <section className={styles.signUpSection} id="form">
-      {!signedUp ? (
+      {signedUp === false ? (
         <>
           <h1 className={styles.signUpSection__title}>
             Working with POST request

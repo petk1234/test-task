@@ -3,7 +3,7 @@ import TextareaErrors from "./TextareaErrors";
 import styles from "./textAreaStyles.module.scss";
 function Textarea({ onImgFile, inp, onBlurPhoto }) {
   const [imgName, setImgName] = useState();
-  const { imgEmpty, imgSize, isDirtyPhoto } = inp;
+  const { imgEmpty, imgSize, isDirtyPhoto, isAppropriateType } = inp;
   const handleImgFile = (e) => {
     if (e.target.files[0]) {
       setImgName(e.target.files[0].name);
@@ -27,7 +27,8 @@ function Textarea({ onImgFile, inp, onBlurPhoto }) {
         />
         <button
           className={
-            (!isDirtyPhoto && imgSize) || (isDirtyPhoto && !imgEmpty && imgSize)
+            (!isDirtyPhoto && imgSize) ||
+            (isDirtyPhoto && !imgEmpty && imgSize && isAppropriateType)
               ? styles.signUpSection__button
               : `${styles.signUpSection__redBorderButton} ${styles.signUpSection__button}`
           }
@@ -36,7 +37,8 @@ function Textarea({ onImgFile, inp, onBlurPhoto }) {
         </button>
         <textarea
           className={
-            (!isDirtyPhoto && imgSize) || (isDirtyPhoto && !imgEmpty && imgSize)
+            (!isDirtyPhoto && imgSize) ||
+            (isDirtyPhoto && !imgEmpty && imgSize && isAppropriateType)
               ? styles.signUpSection__textarea
               : `${styles.signUpSection__redBorderTextarea} ${styles.signUpSection__textarea}`
           }
