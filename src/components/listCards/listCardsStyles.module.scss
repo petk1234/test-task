@@ -1,5 +1,5 @@
 @mixin pFeatures {
-  font-family: "Nunito";
+  font-family: "NunitoRegular";
   font-weight: 400;
   font-size: 40px;
 }
@@ -56,14 +56,4 @@
       background: #ffe302;
     }
   }
-
-  //   @media all and (min-width: 767px) {
-  //     background: url("../../images/info/imageTwo.png") no-repeat center center;
-  //     background-size: 100% 100%;
-  //   }
-  //   @media all and (min-width: 1023px) {
-  //     background: url("../../images/info/image3.png") no-repeat center center;
-  //     background-size: 100% 100%;
-  //     min-height: 650px;
-  //   }
 }

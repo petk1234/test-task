@@ -4,7 +4,13 @@ function Card({ user }) {
   let { photo, name, position, email, phone } = user;
   return (
     <li className={styles.usersSection__card}>
-      <img className={styles.usersSection__img} src={photo} alt="" />
+      <img
+        className={styles.usersSection__img}
+        width="70"
+        height="70"
+        src={photo}
+        alt=""
+      />
       <Tooltip name={name} input={name} />
       <Tooltip input={position} />
       <Tooltip input={email} />

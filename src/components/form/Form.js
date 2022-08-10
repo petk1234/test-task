@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import Inputs from "../../inputs/Inputs";
+import Inputs from "../inputs/Inputs";
 import RadioButtons from "../radio-buttons/RadioButtons";
 import Textarea from "../textarea/Textarea";
 import Preloader from "../loader/Preloader";

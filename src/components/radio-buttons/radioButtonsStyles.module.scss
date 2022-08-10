@@ -1,5 +1,5 @@
 @mixin pFeatures {
-  font-family: "Nunito";
+  font-family: "NunitoRegular";
   font-weight: 400;
   font-size: 16px;
 }
@@ -37,16 +37,13 @@
       width: 10px;
       height: 10px;
       margin: 50%;
-      // margin: 0;
-      // margin-right: 100%;
-      // margin-bottom: 100%;
       transform: translate(-50%, -50%);
       border-radius: 50%;
       background: #00bdd3;
     }
   }
   &__position {
-    font-family: "Nunito";
+    font-family: "NunitoRegular";
     font-weight: 400;
     font-size: 16px;
   }

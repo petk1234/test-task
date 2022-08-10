@@ -1,12 +1,20 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
+@font-face {
+  font-family: "NunitoRegular";
+  font-display: swap;
+  src: local("NunitoRegular"),
+    url("../../fonts/nunito/Nunito-Regular.ttf") format("truetype");
+  font-weight: 400;
+  // font-style: normal;
+}
 @mixin pFeatures {
   margin: 0;
-  font-family: "Nunito" !important;
+  font-family: "NunitoRegular" !important;
   font-weight: 400;
   font-size: 16px;
 }
 .section {
-  background: url("../../images/info/imageOne.png") no-repeat center center;
+  background: url("../../images/info/image_One.webp") no-repeat center center;
   background-size: 100% 100%;
   min-width: 360px;
   min-height: 500px;
@@ -17,16 +25,16 @@
   align-items: center;
   text-align: center;
   @media all and (min-width: 767px) {
-    background: url("../../images/info/imageTwo.png") no-repeat center center;
+    background: url("../../images/info/image_Two.webp") no-repeat center center;
     background-size: 100% 100%;
   }
   @media all and (min-width: 1023px) {
-    background: url("../../images/info/image3.png") no-repeat center center;
+    background: url("../../images/info/image_3.webp") no-repeat center center;
     background-size: 100% 100%;
     min-height: 650px;
   }
   @media all and (min-width: 1171px) {
-    background: url("../../images/info/image4.png") no-repeat center center;
+    background: url("../../images/info/image_4.webp") no-repeat center center;
     max-width: 1170px;
   }
   &__container {
